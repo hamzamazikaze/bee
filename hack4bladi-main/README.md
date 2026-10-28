@@ -6,9 +6,6 @@ Colleagues in the same building join one group order before a cutoff. Home kitch
 order, one delivery serves the whole building, and everyone pays a lower group price for their
 own share. Built for Hack4Bladi: a working demo with demo data, not a production service.
 
-> **Team:** start with [docs/ONBOARDING.md](docs/ONBOARDING.md). Every change goes through a
-> pull request reviewed and merged by @AbdelkbirNA. AI agents follow [AGENTS.md](AGENTS.md).
-
 ## What it does
 
 - **Today's menu by workplace:** each building sees the kitchens of its own city (Casablanca,

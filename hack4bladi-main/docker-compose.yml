@@ -1,0 +1,48 @@
+# Khotwa on the visionxart box, in the shape the other apps there already take:
+# bound to 127.0.0.1 only, with nginx terminating TLS in front of it.
+#
+#   docker compose pull && docker compose up -d
+#
+# Port 3010 because 3000, 3004, 3005, 3007, 3008 and 3009 are taken by the containers
+# already running. Check with `ss -tlnp | grep 30` before assuming it is still free.
+
+services:
+  khotwa:
+    image: ghcr.io/visionxartorg/khotwa:latest
+    container_name: khotwa
+    restart: unless-stopped
+    # 127.0.0.1 on purpose: nothing reaches this except through nginx, so the app never
+    # has to be its own TLS terminator or its own firewall.
+    ports:
+      - "127.0.0.1:3010:3000"
+    environment:
+      NODE_ENV: production
+      # Voice: MoulSot answers for everyone. The box has no function timeout, so the
+      # twenty seconds it costs is simply twenty seconds — the constraint that made this
+      # setting awkward on Vercel does not exist here.
+      VOICE_ENGINE: darija
+    # Keys live in a file the repo has never seen. `env_file` rather than `environment`
+    # so they are not in this file, not in git, and not in `docker inspect` output that
+    # someone pastes into a chat.
+    env_file:
+      - .env.production
+    # One vCPU shared with eight other containers. A runaway build or a model call storm
+    # must not take the mail server down with it.
+    deploy:
+      resources:
+        limits:
+          memory: 512M
+    healthcheck:
+      # The manifest is static and needs no key, so this checks the server is serving
+      # rather than that an upstream API happens to be up.
+      test: ["CMD", "wget", "-qO-", "http://127.0.0.1:3000/manifest.webmanifest"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 20s
+    logging:
+      # Dozzle is already on this box; keep the logs it reads bounded.
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"

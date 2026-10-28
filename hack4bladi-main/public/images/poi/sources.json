@@ -1,0 +1,782 @@
+{
+  "azemmour-medina": {
+    "author": "Ggia",
+    "commons": "https://commons.wikimedia.org/wiki/File:20090807_Azemmour_Morocco_1.jpg",
+    "credit": "Own work",
+    "crop": {
+      "box": "2832x3540",
+      "focus": [
+        0.5,
+        0.5
+      ],
+      "zoom": 1.0
+    },
+    "date": "2009-08-07",
+    "description": "City Azemmour, Morocco.",
+    "file": "File:20090807 Azemmour Morocco 1.jpg",
+    "license": "CC BY-SA 3.0",
+    "local": "/images/poi/azemmour-medina.webp",
+    "match": "EXACT",
+    "original": "https://upload.wikimedia.org/wikipedia/commons/8/80/20090807_Azemmour_Morocco_1.jpg",
+    "output_bytes": 224784,
+    "output_dimensions": "1200x1500",
+    "slug": "azemmour-medina",
+    "source_dimensions": "2832x4256",
+    "subject": "Medina and ramparts of Azemmour",
+    "usage_terms": "Creative Commons Attribution-Share Alike 3.0"
+  },
+  "balade-en-barque-lagune-oualidia": {
+    "author": "Sharon Hahn Darlin",
+    "commons": "https://commons.wikimedia.org/wiki/File:Oualidia,_Casablanca-Settat_region,_Morocco_Dec_2023_-_Lagoon_-_3.jpg",
+    "credit": "https://www.flickr.com/photos/sharonhahndarlin/53387003820/",
+    "crop": {
+      "box": "2359x2949",
+      "focus": [
+        0.55,
+        0.5
+      ],
+      "zoom": 1.0
+    },
+    "date": "2023-12-09 17:34:36",
+    "description": "Oualidia, Casablanca-Settat region, Morocco Dec 2023 - Lagoon with boat",
+    "file": "File:Oualidia, Casablanca-Settat region, Morocco Dec 2023 - Lagoon - 3.jpg",
+    "license": "CC BY 2.0",
+    "local": "/images/poi/balade-en-barque-lagune-oualidia.webp",
+    "match": "EXACT",
+    "original": "https://upload.wikimedia.org/wikipedia/commons/2/26/Oualidia%2C_Casablanca-Settat_region%2C_Morocco_Dec_2023_-_Lagoon_-_3.jpg",
+    "output_bytes": 234316,
+    "output_dimensions": "1200x1500",
+    "slug": "balade-en-barque-lagune-oualidia",
+    "source_dimensions": "3933x2949",
+    "subject": "Boat on the Oualidia lagoon",
+    "usage_terms": "Creative Commons Attribution 2.0"
+  },
+  "bastion-de-lange": {
+    "author": "R Prazeres",
+    "commons": "https://commons.wikimedia.org/wiki/File:El_Jadida_DSCF8851.jpg",
+    "credit": "Own work",
+    "crop": {
+      "box": "2400x3000",
+      "focus": [
+        0.42,
+        0.5
+      ],
+      "zoom": 1.0
+    },
+    "date": "2015-06-09 12:25:29",
+    "description": "View of Mazagan's walls, at the Bastion of the Angel (southeastern corner of the city)",
+    "file": "File:El Jadida DSCF8851.jpg",
+    "license": "CC BY-SA 4.0",
+    "local": "/images/poi/bastion-de-lange.webp",
+    "match": "EXACT",
+    "original": "https://upload.wikimedia.org/wikipedia/commons/8/83/El_Jadida_DSCF8851.jpg",
+    "output_bytes": 256470,
+    "output_dimensions": "1200x1500",
+    "slug": "bastion-de-lange",
+    "source_dimensions": "4000x3000",
+    "subject": "Bastion de l'Ange, El Jadida",
+    "usage_terms": "Creative Commons Attribution-Share Alike 4.0"
+  },
+  "boulevard-mohammed-v": {
+    "author": "Dr. Didier Hinz",
+    "commons": "https://commons.wikimedia.org/wiki/File:Casa_didier55_019.jpg",
+    "credit": "Own work",
+    "crop": {
+      "box": "2764x3456",
+      "focus": [
+        0.5,
+        0.5
+      ],
+      "zoom": 1.0
+    },
+    "date": "2012-08-27 09:45:00",
+    "description": "Immeuble Art Déco Boulevard Mohhamed V Casablanca",
+    "file": "File:Casa didier55 019.jpg",
+    "license": "CC BY-SA 3.0",
+    "local": "/images/poi/boulevard-mohammed-v.webp",
+    "match": "EXACT",
+    "original": "https://upload.wikimedia.org/wikipedia/commons/0/05/Casa_didier55_019.jpg",
+    "output_bytes": 151836,
+    "output_dimensions": "1200x1500",
+    "slug": "boulevard-mohammed-v",
+    "source_dimensions": "5184x3456",
+    "subject": "Boulevard Mohammed V, Casablanca (Art Deco)",
+    "usage_terms": "Creative Commons Attribution-Share Alike 3.0"
+  },
+  "cinema-rialto": {
+    "author": "Turdyfirst",
+    "commons": "https://commons.wikimedia.org/wiki/File:Rialto_Cin%C3%A9ma_Casa.jpg",
+    "credit": "Own work",
+    "crop": {
+      "box": "3472x4340",
+      "focus": [
+        0.45,
+        0.42
+      ],
+      "zoom": 1.0
+    },
+    "date": "2023-04-24 11:13:22",
+    "description": "Cinema",
+    "file": "File:Rialto Cinéma Casa.jpg",
+    "license": "CC BY-SA 4.0",
+    "local": "/images/poi/cinema-rialto.webp",
+    "match": "EXACT",
+    "original": "https://upload.wikimedia.org/wikipedia/commons/d/dd/Rialto_Cin%C3%A9ma_Casa.jpg",
+    "output_bytes": 243590,
+    "output_dimensions": "1200x1500",
+    "slug": "cinema-rialto",
+    "source_dimensions": "3472x4624",
+    "subject": "Cinéma Rialto, Casablanca",
+    "usage_terms": "Creative Commons Attribution-Share Alike 4.0"
+  },
+  "cite-portugaise-mazagan": {
+    "author": "R Prazeres",
+    "commons": "https://commons.wikimedia.org/wiki/File:El_Jadida_DSCF8872.jpg",
+    "credit": "Own work",
+    "crop": {
+      "box": "2400x3000",
+      "focus": [
+        0.5,
+        0.5
+      ],
+      "zoom": 1.0
+    },
+    "date": "2015-06-09 12:43:54",
+    "description": "View of Mazagan from the east, looking towards the sea gate",
+    "file": "File:El Jadida DSCF8872.jpg",
+    "license": "CC BY-SA 4.0",
+    "local": "/images/poi/cite-portugaise-mazagan.webp",
+    "match": "EXACT",
+    "original": "https://upload.wikimedia.org/wikipedia/commons/d/d4/El_Jadida_DSCF8872.jpg",
+    "output_bytes": 256528,
+    "output_dimensions": "1200x1500",
+    "slug": "cite-portugaise-mazagan",
+    "source_dimensions": "4000x3000",
+    "subject": "Cité Portugaise de Mazagan, El Jadida",
+    "usage_terms": "Creative Commons Attribution-Share Alike 4.0"
+  },
+  "citerne-portugaise": {
+    "author": "Amal BENTOUMI",
+    "commons": "https://commons.wikimedia.org/wiki/File:Citerne_portugaise,_Mazagan_-_El_Jadida.jpg",
+    "credit": "Own work",
+    "crop": {
+      "box": "3024x3780",
+      "focus": [
+        0.5,
+        0.5
+      ],
+      "zoom": 1.0
+    },
+    "date": "2018-09-23 16:08:58",
+    "description": "Citerne portugaise a Mazagan.",
+    "file": "File:Citerne portugaise, Mazagan - El Jadida.jpg",
+    "license": "CC BY-SA 4.0",
+    "local": "/images/poi/citerne-portugaise.webp",
+    "match": "EXACT",
+    "original": "https://upload.wikimedia.org/wikipedia/commons/e/ec/Citerne_portugaise%2C_Mazagan_-_El_Jadida.jpg",
+    "output_bytes": 242838,
+    "output_dimensions": "1040x1300",
+    "slug": "citerne-portugaise",
+    "source_dimensions": "3024x4032",
+    "subject": "Citerne Portugaise, El Jadida",
+    "usage_terms": "Creative Commons Attribution-Share Alike 4.0"
+  },
+  "cooking-mi-naima": {
+    "author": "Rystheguy",
+    "commons": "https://commons.wikimedia.org/wiki/File:Amal_Women%27s_Training_Center_and_Moroccan_Restaurant_trainee_making_bread.jpg",
+    "credit": "Own work",
+    "crop": {
+      "box": "1975x2469",
+      "focus": [
+        0.42,
+        0.45
+      ],
+      "zoom": 1.0
+    },
+    "date": "2015-02-08 23:37:40",
+    "description": "Amal Women's Training Center and Moroccan Restaurant culinary teacher making ghoriba (a traditional Moroccan pastry) in the center's kitchen",
+    "file": "File:Amal Women's Training Center and Moroccan Restaurant trainee making bread.jpg",
+    "license": "CC BY-SA 4.0",
+    "local": "/images/poi/cooking-mi-naima.webp",
+    "match": "GENERIC_FALLBACK",
+    "original": "https://upload.wikimedia.org/wikipedia/commons/5/5c/Amal_Women%27s_Training_Center_and_Moroccan_Restaurant_trainee_making_bread.jpg",
+    "output_bytes": 226584,
+    "output_dimensions": "1200x1500",
+    "slug": "cooking-mi-naima",
+    "source_dimensions": "3704x2469",
+    "subject": "Moroccan home cooking / tajine preparation",
+    "usage_terms": "Creative Commons Attribution-Share Alike 4.0"
+  },
+  "degustation-huitres-oualidia": {
+    "author": "Sharon Hahn Darlin",
+    "commons": "https://commons.wikimedia.org/wiki/File:Oualidia,_Casablanca-Settat_region,_Morocco_November_2023_-_Meal_with_a_view.jpg",
+    "credit": "https://www.flickr.com/photos/sharonhahndarlin/53348862500/",
+    "crop": {
+      "box": "2404x3005",
+      "focus": [
+        0.5,
+        0.5
+      ],
+      "zoom": 1.0
+    },
+    "date": "2023-11-22 12:05:45",
+    "description": "A peaceful warm November day - meal with beautiful view from terrace - oysters and Louisiana Supreme Hot Sauce",
+    "file": "File:Oualidia, Casablanca-Settat region, Morocco November 2023 - Meal with a view.jpg",
+    "license": "CC BY 2.0",
+    "local": "/images/poi/degustation-huitres-oualidia.webp",
+    "match": "EXACT",
+    "original": "https://upload.wikimedia.org/wikipedia/commons/b/b7/Oualidia%2C_Casablanca-Settat_region%2C_Morocco_November_2023_-_Meal_with_a_view.jpg",
+    "output_bytes": 201314,
+    "output_dimensions": "1200x1500",
+    "slug": "degustation-huitres-oualidia",
+    "source_dimensions": "4007x3005",
+    "subject": "Oyster farming / tasting at Oualidia",
+    "usage_terms": "Creative Commons Attribution 2.0"
+  },
+  "fondation-abderrahman-slaoui": {
+    "author": "Musée Abderrahman Slaoui",
+    "commons": "https://commons.wikimedia.org/wiki/File:Mus%C3%A9e_gen%C3%A8se_3.jpg",
+    "credit": "Own work",
+    "crop": {
+      "box": "1134x1417",
+      "focus": [
+        0.5,
+        0.5
+      ],
+      "zoom": 1.0
+    },
+    "date": "2012-09-25 19:47:22",
+    "description": "Musée genèse",
+    "file": "File:Musée genèse 3.jpg",
+    "license": "CC BY-SA 3.0",
+    "local": "/images/poi/fondation-abderrahman-slaoui.webp",
+    "match": "EXACT",
+    "original": "https://upload.wikimedia.org/wikipedia/commons/e/e9/Mus%C3%A9e_gen%C3%A8se_3.jpg",
+    "output_bytes": 181144,
+    "output_dimensions": "1134x1418",
+    "slug": "fondation-abderrahman-slaoui",
+    "source_dimensions": "1134x1707",
+    "subject": "Fondation Abderrahman Slaoui, Casablanca",
+    "usage_terms": "Creative Commons Attribution-Share Alike 3.0"
+  },
+  "habous-artisan-walk": {
+    "author": "Omalihy",
+    "commons": "https://commons.wikimedia.org/wiki/File:A_souvenirs_shop_in_habous_market_casablanca.jpg",
+    "credit": "Own work",
+    "crop": {
+      "box": "1365x1706",
+      "focus": [
+        0.5,
+        0.5
+      ],
+      "zoom": 1.0
+    },
+    "date": "2019-09-10",
+    "description": "Casablanca",
+    "file": "File:A souvenirs shop in habous market casablanca.jpg",
+    "license": "CC BY-SA 4.0",
+    "local": "/images/poi/habous-artisan-walk.webp",
+    "match": "EXACT",
+    "original": "https://upload.wikimedia.org/wikipedia/commons/6/62/A_souvenirs_shop_in_habous_market_casablanca.jpg",
+    "output_bytes": 252408,
+    "output_dimensions": "896x1120",
+    "slug": "habous-artisan-walk",
+    "source_dimensions": "1365x2048",
+    "subject": "Quartier des Habous artisan streets, Casablanca",
+    "usage_terms": "Creative Commons Attribution-Share Alike 4.0"
+  },
+  "kasbah-de-boulaouane": {
+    "author": "Corinne Béguin",
+    "commons": "https://commons.wikimedia.org/wiki/File:Kasbah_de_Boulaouane.jpg",
+    "credit": "Flickr :  Kasbah de Boulaouane",
+    "crop": {
+      "box": "1704x2130",
+      "focus": [
+        0.5,
+        0.5
+      ],
+      "zoom": 1.0
+    },
+    "date": "2007-10-08 09:16:05",
+    "description": "Kasbah in Boulaouane in Morocco",
+    "file": "File:Kasbah de Boulaouane.jpg",
+    "license": "CC BY 2.0",
+    "local": "/images/poi/kasbah-de-boulaouane.webp",
+    "match": "EXACT",
+    "original": "https://upload.wikimedia.org/wikipedia/commons/8/8f/Kasbah_de_Boulaouane.jpg",
+    "output_bytes": 119866,
+    "output_dimensions": "1200x1500",
+    "slug": "kasbah-de-boulaouane",
+    "source_dimensions": "1704x2272",
+    "subject": "Kasbah of Boulaouane",
+    "usage_terms": "Creative Commons Attribution 2.0"
+  },
+  "kasbah-de-mohammedia": {
+    "author": "Bentaia Hafid",
+    "commons": "https://commons.wikimedia.org/wiki/File:Bab_elkasbah_mohammedia.jpg",
+    "credit": "Own work",
+    "crop": {
+      "box": "1084x1356",
+      "focus": [
+        0.5,
+        0.5
+      ],
+      "zoom": 1.0
+    },
+    "date": "2019-09-07",
+    "description": "La Kasbah est un véritable monument historique qui existe à Mohammedia.",
+    "file": "File:Bab elkasbah mohammedia.jpg",
+    "license": "CC BY-SA 4.0",
+    "local": "/images/poi/kasbah-de-mohammedia.webp",
+    "match": "EXACT",
+    "original": "https://upload.wikimedia.org/wikipedia/commons/b/b1/Bab_elkasbah_mohammedia.jpg",
+    "output_bytes": 259776,
+    "output_dimensions": "1084x1355",
+    "slug": "kasbah-de-mohammedia",
+    "source_dimensions": "2048x1356",
+    "subject": "Kasbah of Mohammedia (Fedala)",
+    "usage_terms": "Creative Commons Attribution-Share Alike 4.0"
+  },
+  "la-sqala": {
+    "author": "Turdyfirst",
+    "commons": "https://commons.wikimedia.org/wiki/File:Sqala_Casablanca.jpg",
+    "credit": "Own work",
+    "crop": {
+      "box": "3472x4340",
+      "focus": [
+        0.5,
+        0.5
+      ],
+      "zoom": 1.0
+    },
+    "date": "2023-04-24 15:12:53",
+    "description": "Sqala",
+    "file": "File:Sqala Casablanca.jpg",
+    "license": "CC BY-SA 4.0",
+    "local": "/images/poi/la-sqala.webp",
+    "match": "EXACT",
+    "original": "https://upload.wikimedia.org/wikipedia/commons/d/d2/Sqala_Casablanca.jpg",
+    "output_bytes": 244678,
+    "output_dimensions": "896x1120",
+    "slug": "la-sqala",
+    "source_dimensions": "3472x4624",
+    "subject": "La Sqala, bastion of Casablanca's old medina",
+    "usage_terms": "Creative Commons Attribution-Share Alike 4.0"
+  },
+  "lagune-de-oualidia": {
+    "author": "Soufiane absri",
+    "commons": "https://commons.wikimedia.org/wiki/File:La_plage_El_oualidia.jpg",
+    "credit": "Own work",
+    "crop": {
+      "box": "2764x3456",
+      "focus": [
+        0.5,
+        0.45
+      ],
+      "zoom": 1.0
+    },
+    "date": "2017-08-16 10:43:32",
+    "description": "Beach at Oualidia, Casablanca-Settat region, Morocco",
+    "file": "File:La plage El oualidia.jpg",
+    "license": "CC BY-SA 4.0",
+    "local": "/images/poi/lagune-de-oualidia.webp",
+    "match": "EXACT",
+    "original": "https://upload.wikimedia.org/wikipedia/commons/f/fc/La_plage_El_oualidia.jpg",
+    "output_bytes": 239518,
+    "output_dimensions": "1200x1500",
+    "slug": "lagune-de-oualidia",
+    "source_dimensions": "5184x3456",
+    "subject": "Lagune de Oualidia",
+    "usage_terms": "Creative Commons Attribution-Share Alike 4.0"
+  },
+  "leather-bag-workshop": {
+    "author": "Chika Okoli",
+    "commons": "https://commons.wikimedia.org/wiki/File:The_Bag_Maker.jpg",
+    "credit": "Own work",
+    "crop": {
+      "box": "2760x3450",
+      "focus": [
+        0.5,
+        0.5
+      ],
+      "zoom": 1.0
+    },
+    "date": "2016-10-13 00:46:41",
+    "description": "This is an image of \"African people at work\" from",
+    "file": "File:The Bag Maker.jpg",
+    "license": "CC BY-SA 4.0",
+    "local": "/images/poi/leather-bag-workshop.webp",
+    "match": "STRONG_RELATED",
+    "original": "https://upload.wikimedia.org/wikipedia/commons/f/fb/The_Bag_Maker.jpg",
+    "output_bytes": 187792,
+    "output_dimensions": "1200x1500",
+    "slug": "leather-bag-workshop",
+    "source_dimensions": "2760x4896",
+    "subject": "Moroccan leather artisan at work",
+    "usage_terms": "Creative Commons Attribution-Share Alike 4.0"
+  },
+  "marina-casablanca": {
+    "author": "Farid mernissi",
+    "commons": "https://commons.wikimedia.org/wiki/File:Bateaux_de_p%C3%AAche_au_ancien_port_de_casablanca.jpg",
+    "credit": "Own work",
+    "crop": {
+      "box": "2496x3120",
+      "focus": [
+        0.55,
+        0.5
+      ],
+      "zoom": 1.0
+    },
+    "date": "2020-11-25",
+    "description": "Bateaux de pêche au ancien port de casablanca  - Morocco -",
+    "file": "File:Bateaux de pêche au ancien port de casablanca.jpg",
+    "license": "CC BY-SA 4.0",
+    "local": "/images/poi/marina-casablanca.webp",
+    "match": "STRONG_RELATED",
+    "original": "https://upload.wikimedia.org/wikipedia/commons/1/15/Bateaux_de_p%C3%AAche_au_ancien_port_de_casablanca.jpg",
+    "output_bytes": 217942,
+    "output_dimensions": "1200x1500",
+    "slug": "marina-casablanca",
+    "source_dimensions": "4160x3120",
+    "subject": "Marina de Casablanca",
+    "usage_terms": "Creative Commons Attribution-Share Alike 4.0"
+  },
+  "moroccan-tea-ritual": {
+    "author": "katiebordner",
+    "commons": "https://commons.wikimedia.org/wiki/File:Mint_tea_(14823416550).jpg",
+    "credit": "mint tea",
+    "crop": {
+      "box": "2498x3123",
+      "focus": [
+        0.5,
+        0.45
+      ],
+      "zoom": 1.0
+    },
+    "date": "2014-07-30 08:57",
+    "description": "A Moroccan waiter in Tangier, serving traditional Moroccan mint tea. The waiter wears the traditional Moroccan Jabador and the traditional red Fez.",
+    "file": "File:Mint tea (14823416550).jpg",
+    "license": "CC BY 2.0",
+    "local": "/images/poi/moroccan-tea-ritual.webp",
+    "match": "STRONG_RELATED",
+    "original": "https://upload.wikimedia.org/wikipedia/commons/a/a0/Mint_tea_%2814823416550%29.jpg",
+    "output_bytes": 238586,
+    "output_dimensions": "1200x1500",
+    "slug": "moroccan-tea-ritual",
+    "source_dimensions": "2498x3748",
+    "subject": "Moroccan mint tea poured",
+    "usage_terms": "Creative Commons Attribution 2.0"
+  },
+  "musee-du-judaisme-marocain": {
+    "author": "Osama Shukir Muhammed Amin FRCP(Glasg)",
+    "commons": "https://commons.wikimedia.org/wiki/File:One_of_the_halls_at_the_Moroccan_Jewish_Museum_of_Casablanca,_Morocco.jpg",
+    "credit": "Own work",
+    "crop": {
+      "box": "2848x3560",
+      "focus": [
+        0.5,
+        0.45
+      ],
+      "zoom": 1.0
+    },
+    "date": "2014-05-14 13:49:47",
+    "description": "One of the halls at the Moroccan Jewish Museum of Casablanca, Morocco",
+    "file": "File:One of the halls at the Moroccan Jewish Museum of Casablanca, Morocco.jpg",
+    "license": "CC BY-SA 4.0",
+    "local": "/images/poi/musee-du-judaisme-marocain.webp",
+    "match": "EXACT",
+    "original": "https://upload.wikimedia.org/wikipedia/commons/c/cf/One_of_the_halls_at_the_Moroccan_Jewish_Museum_of_Casablanca%2C_Morocco.jpg",
+    "output_bytes": 251546,
+    "output_dimensions": "1200x1500",
+    "slug": "musee-du-judaisme-marocain",
+    "source_dimensions": "2848x4288",
+    "subject": "Musée du Judaïsme Marocain, Casablanca",
+    "usage_terms": "Creative Commons Attribution-Share Alike 4.0"
+  },
+  "oualidia-oyster-tasting": {
+    "author": "Sharon Hahn Darlin",
+    "commons": "https://commons.wikimedia.org/wiki/File:Oualidia,_Casablanca-Settat_region,_Morocco_Dec_2023_-_Food_and_vin_blanc_on_warm_afternoon.jpg",
+    "credit": "https://www.flickr.com/photos/sharonhahndarlin/53404096469/",
+    "crop": {
+      "box": "2420x3024",
+      "focus": [
+        0.5,
+        0.5
+      ],
+      "zoom": 1.0
+    },
+    "date": "2023-12-17 12:51:25",
+    "description": "A warm December afternoon, a glass of vin blanc (Domaine des Ouled Thaleb)",
+    "file": "File:Oualidia, Casablanca-Settat region, Morocco Dec 2023 - Food and vin blanc on warm afternoon.jpg",
+    "license": "CC BY 2.0",
+    "local": "/images/poi/oualidia-oyster-tasting.webp",
+    "match": "EXACT",
+    "original": "https://upload.wikimedia.org/wikipedia/commons/3/3f/Oualidia%2C_Casablanca-Settat_region%2C_Morocco_Dec_2023_-_Food_and_vin_blanc_on_warm_afternoon.jpg",
+    "output_bytes": 153298,
+    "output_dimensions": "1200x1500",
+    "slug": "oualidia-oyster-tasting",
+    "source_dimensions": "4032x3024",
+    "subject": "Oysters served by the Oualidia lagoon",
+    "usage_terms": "Creative Commons Attribution 2.0"
+  },
+  "parc-ligue-arabe": {
+    "author": "Turdyfirst",
+    "commons": "https://commons.wikimedia.org/wiki/File:Ligue_Arabe_Casablanca_2.jpg",
+    "credit": "Own work",
+    "crop": {
+      "box": "3472x4340",
+      "focus": [
+        0.5,
+        0.5
+      ],
+      "zoom": 1.0
+    },
+    "date": "2023-04-24 11:47:21",
+    "description": "Park Jardin",
+    "file": "File:Ligue Arabe Casablanca 2.jpg",
+    "license": "CC BY-SA 4.0",
+    "local": "/images/poi/parc-ligue-arabe.webp",
+    "match": "EXACT",
+    "original": "https://upload.wikimedia.org/wikipedia/commons/3/33/Ligue_Arabe_Casablanca_2.jpg",
+    "output_bytes": 299320,
+    "output_dimensions": "896x1120",
+    "slug": "parc-ligue-arabe",
+    "source_dimensions": "3472x4624",
+    "subject": "Parc de la Ligue Arabe, Casablanca",
+    "usage_terms": "Creative Commons Attribution-Share Alike 4.0"
+  },
+  "phare-el-hank": {
+    "author": "Elbekkari Bouchra",
+    "commons": "https://commons.wikimedia.org/wiki/File:%D9%85%D9%86%D8%A7%D8%B1%D8%A9_%D8%A7%D9%84%D8%B9%D9%86%D9%82_(22308).jpg",
+    "credit": "Own work",
+    "crop": {
+      "box": "3072x3840",
+      "focus": [
+        0.5,
+        0.42
+      ],
+      "zoom": 1.0
+    },
+    "date": "24 June 2025 (according to <span lang=\"e",
+    "description": "El Hank Lighthouse, Casablanca",
+    "file": "File:منارة العنق (22308).jpg",
+    "license": "CC BY-SA 4.0",
+    "local": "/images/poi/phare-el-hank.webp",
+    "match": "EXACT",
+    "original": "https://upload.wikimedia.org/wikipedia/commons/6/66/%D9%85%D9%86%D8%A7%D8%B1%D8%A9_%D8%A7%D9%84%D8%B9%D9%86%D9%82_%2822308%29.jpg",
+    "output_bytes": 72790,
+    "output_dimensions": "1200x1500",
+    "slug": "phare-el-hank",
+    "source_dimensions": "3072x4096",
+    "subject": "Phare d'El Hank, Casablanca",
+    "usage_terms": "Creative Commons Attribution-Share Alike 4.0"
+  },
+  "phare-sidi-bouafi": {
+    "author": "Belbachirkamal",
+    "commons": "https://commons.wikimedia.org/wiki/File:SIDI_BOU_AFI_LIGHTHOUSE_-_EL_JADIDA_-_MOROCCO.jpg",
+    "credit": "Own work",
+    "crop": {
+      "box": "2803x3503",
+      "focus": [
+        0.5,
+        0.52
+      ],
+      "zoom": 0.8
+    },
+    "date": "2015-01-12 19:24:30",
+    "description": "sidi Bou Afi lighthouse in el Jadida, Morocco, standing height at 46 m in a foggy day\n This lighthouse was Opened in 1916\n \nYou can never get lost in El Jadida as you can always see the lighthouse.",
+    "file": "File:SIDI BOU AFI LIGHTHOUSE - EL JADIDA - MOROCCO.jpg",
+    "license": "CC BY-SA 4.0",
+    "local": "/images/poi/phare-sidi-bouafi.webp",
+    "match": "EXACT",
+    "original": "https://upload.wikimedia.org/wikipedia/commons/4/4e/SIDI_BOU_AFI_LIGHTHOUSE_-_EL_JADIDA_-_MOROCCO.jpg",
+    "output_bytes": 26776,
+    "output_dimensions": "1200x1500",
+    "slug": "phare-sidi-bouafi",
+    "source_dimensions": "3503x5253",
+    "subject": "Phare Sidi Bouafi, Oualidia / El Jadida coast",
+    "usage_terms": "Creative Commons Attribution-Share Alike 4.0"
+  },
+  "place-mohammed-v": {
+    "author": "Reda benkhadra",
+    "commons": "https://commons.wikimedia.org/wiki/File:Wilaya_de_Casablanca-Settat_01.jpg",
+    "credit": "Own work",
+    "crop": {
+      "box": "1836x2295",
+      "focus": [
+        0.5,
+        0.56
+      ],
+      "zoom": 0.85
+    },
+    "date": "2024-05-19 15:56:49",
+    "description": "Casablanca-Settat Wilaya, Mohammed V Square, Casablanca",
+    "file": "File:Wilaya de Casablanca-Settat 01.jpg",
+    "license": "CC BY-SA 4.0",
+    "local": "/images/poi/place-mohammed-v.webp",
+    "match": "EXACT",
+    "original": "https://upload.wikimedia.org/wikipedia/commons/4/46/Wilaya_de_Casablanca-Settat_01.jpg",
+    "output_bytes": 213484,
+    "output_dimensions": "1200x1500",
+    "slug": "place-mohammed-v",
+    "source_dimensions": "2160x2880",
+    "subject": "Place Mohammed V, Casablanca",
+    "usage_terms": "Creative Commons Attribution-Share Alike 4.0"
+  },
+  "plage-ain-diab": {
+    "author": "Achalhikarim",
+    "commons": "https://commons.wikimedia.org/wiki/File:Sidi_Abderahmane,_Ain_Diab,_Casablanca_2013.jpg",
+    "credit": "Own work",
+    "crop": {
+      "box": "2764x3456",
+      "focus": [
+        0.5,
+        0.5
+      ],
+      "zoom": 1.0
+    },
+    "date": "2013-06-28 20:43:11",
+    "description": "This picture belongs to my projects 52 weeks, a beautiful sunset in Sidi Abderahmane.",
+    "file": "File:Sidi Abderahmane, Ain Diab, Casablanca 2013.jpg",
+    "license": "CC BY-SA 4.0",
+    "local": "/images/poi/plage-ain-diab.webp",
+    "match": "EXACT",
+    "original": "https://upload.wikimedia.org/wikipedia/commons/1/10/Sidi_Abderahmane%2C_Ain_Diab%2C_Casablanca_2013.jpg",
+    "output_bytes": 101470,
+    "output_dimensions": "1200x1500",
+    "slug": "plage-ain-diab",
+    "source_dimensions": "5184x3456",
+    "subject": "Plage Aïn Diab, Casablanca",
+    "usage_terms": "Creative Commons Attribution-Share Alike 4.0"
+  },
+  "plage-de-oualidia": {
+    "author": "Mustang Joe",
+    "commons": "https://commons.wikimedia.org/wiki/File:Fishing_boat_in_the_port_of_Oualidia,_Morocco.jpg",
+    "credit": "https://www.flickr.com/photos/63234672@N04/55223521919/",
+    "crop": {
+      "box": "3166x3957",
+      "focus": [
+        0.4,
+        0.5
+      ],
+      "zoom": 1.0
+    },
+    "date": "Taken on 20 April 2026, 12:02:47",
+    "description": "Fishing boat in the port of Oualidia, Morocco",
+    "file": "File:Fishing boat in the port of Oualidia, Morocco.jpg",
+    "license": "CC0",
+    "local": "/images/poi/plage-de-oualidia.webp",
+    "match": "EXACT",
+    "original": "https://upload.wikimedia.org/wikipedia/commons/f/fd/Fishing_boat_in_the_port_of_Oualidia%2C_Morocco.jpg",
+    "output_bytes": 256284,
+    "output_dimensions": "1200x1500",
+    "slug": "plage-de-oualidia",
+    "source_dimensions": "5928x3957",
+    "subject": "Plage de Oualidia",
+    "usage_terms": "Creative Commons Zero, Public Domain Dedication"
+  },
+  "plage-deauville": {
+    "author": "Mounir Neddi",
+    "commons": "https://commons.wikimedia.org/wiki/File:Miramar_Beach_in_Mohammedia,_Morocco.jpg",
+    "credit": "Own work",
+    "crop": {
+      "box": "2764x3456",
+      "focus": [
+        0.5,
+        0.5
+      ],
+      "zoom": 1.0
+    },
+    "date": "2020-02-27",
+    "description": "صورة لمصطفين بشاطئ ميرامار خلال فصل الخريف",
+    "file": "File:Miramar Beach in Mohammedia, Morocco.jpg",
+    "license": "CC BY-SA 4.0",
+    "local": "/images/poi/plage-deauville.webp",
+    "match": "STRONG_RELATED",
+    "original": "https://upload.wikimedia.org/wikipedia/commons/a/a5/Miramar_Beach_in_Mohammedia%2C_Morocco.jpg",
+    "output_bytes": 81506,
+    "output_dimensions": "1200x1500",
+    "slug": "plage-deauville",
+    "source_dimensions": "5184x3456",
+    "subject": "Plage Deauville, Mohammedia",
+    "usage_terms": "Creative Commons Attribution-Share Alike 4.0"
+  },
+  "pottery-el-jadida": {
+    "author": "Jerzy Strzelecki",
+    "commons": "https://commons.wikimedia.org/wiki/File:Safi4_(js).jpg",
+    "credit": "Own work",
+    "crop": {
+      "box": "2684x3355",
+      "focus": [
+        0.45,
+        0.5
+      ],
+      "zoom": 1.0
+    },
+    "date": "",
+    "description": "Safi, Potters' Quarter, Morocco",
+    "file": "File:Safi4 (js).jpg",
+    "license": "CC BY 3.0",
+    "local": "/images/poi/pottery-el-jadida.webp",
+    "match": "STRONG_RELATED",
+    "original": "https://upload.wikimedia.org/wikipedia/commons/0/03/Safi4_%28js%29.jpg",
+    "output_bytes": 179340,
+    "output_dimensions": "1200x1500",
+    "slug": "pottery-el-jadida",
+    "source_dimensions": "5110x3355",
+    "subject": "Moroccan potter at the wheel",
+    "usage_terms": "Creative Commons Attribution 3.0"
+  },
+  "sindibad-park": {
+    "author": "Moutou60",
+    "commons": "https://commons.wikimedia.org/wiki/File:Le_lion.jpg",
+    "credit": "Own work",
+    "crop": {
+      "box": "936x1170",
+      "focus": [
+        0.35,
+        0.44
+      ],
+      "zoom": 0.3
+    },
+    "date": "2017-04-04",
+    "description": "(Different to the French version) A captive male lion with a thick mane that was characteristic of the Barbary lion at Parc Sindibad in Morocco, by Walibi.",
+    "file": "File:Le lion.jpg",
+    "license": "CC BY-SA 4.0",
+    "local": "/images/poi/sindibad-park.webp",
+    "match": "EXACT",
+    "original": "https://upload.wikimedia.org/wikipedia/commons/8/82/Le_lion.jpg",
+    "output_bytes": 100874,
+    "output_dimensions": "936x1170",
+    "slug": "sindibad-park",
+    "source_dimensions": "3120x4160",
+    "subject": "Sindibad Park, Casablanca",
+    "usage_terms": "Creative Commons Attribution-Share Alike 4.0"
+  },
+  "villa-des-arts": {
+    "author": "Turdyfirst",
+    "commons": "https://commons.wikimedia.org/wiki/File:Villa_des_Arts.jpg",
+    "credit": "Own work",
+    "crop": {
+      "box": "3472x4340",
+      "focus": [
+        0.5,
+        0.5
+      ],
+      "zoom": 1.0
+    },
+    "date": "2023-04-24 12:39:13",
+    "description": "Musée",
+    "file": "File:Villa des Arts.jpg",
+    "license": "CC BY-SA 4.0",
+    "local": "/images/poi/villa-des-arts.webp",
+    "match": "EXACT",
+    "original": "https://upload.wikimedia.org/wikipedia/commons/7/79/Villa_des_Arts.jpg",
+    "output_bytes": 232330,
+    "output_dimensions": "1040x1300",
+    "slug": "villa-des-arts",
+    "source_dimensions": "3472x4624",
+    "subject": "Villa des Arts, Casablanca",
+    "usage_terms": "Creative Commons Attribution-Share Alike 4.0"
+  }
+}

@@ -1,0 +1,905 @@
+@import "tailwindcss";
+
+/* ---------------------------------------------------------------------------
+   Siyaha design tokens — Lead-owned.
+
+   Semantic first: components use --color-primary, never a hex. Light is the default; `<html data-theme="dark">` swaps in the dark set below.
+   The theme is read from a cookie on the server, so the first byte is already right.
+
+   RTL: use Tailwind logical utilities (ps-/pe-/ms-/me-/text-start/text-end/start-/end-).
+   Never pl-/pr-/ml-/mr-/left-/right-/text-left/text-right — Arabic breaks structurally.
+--------------------------------------------------------------------------- */
+
+/* BENNA — "Le goût de la maison, là où vous travaillez."
+
+   Light is the default: cream and white carry the screen, the logo red #A8060F is the one
+   action colour (buttons, selection, steppers), warm yellow #F4B942 is spent sparingly (a
+   tag, the OPEN badge, the group-price box). Structure comes from
+   hairlines and tinted bands, not cards and shadows. */
+:root,
+[data-theme="light"] {
+  /* Warm cream page, white cards on it (the mockup's structure). */
+  --background: #fbf6ee;
+  --foreground: #16120f;
+  --surface: #ffffff;
+  --surface-muted: #f3ece1;
+  /* The brand cream: perk banners, empty states, the welcome screen. */
+  --cream: #fff4e6;
+
+  --primary: #a8060f;
+  --primary-hover: #8c040c;
+  --primary-foreground: #fff4e6;
+  --primary-soft: #f9e6e1;
+  --primary-ink: #a8060f;
+
+  --mark-stride: #a8060f;
+  --mark-base: #a8060f;
+
+  --deep-green: #a8060f;
+  --deep-green-foreground: #fff4e6;
+  --accent-red: #a8060f;
+  --accent-red-soft: #fbe3e4;
+  /* The charter red, fixed in both themes: the BENNA wordmark and the M3AK button keep the
+     light-mode colour in dark mode instead of turning pink on the green-black ground. */
+  --brand-red: #a8060f;
+
+  /* Yellow is a fill (tags, the OPEN badge, the perk banner). Text in yellow's place
+     uses -ink: #F4B942 on white is 1.7:1. */
+  --saffron: #f4b942;
+  --saffron-soft: #fdf0d2;
+  --saffron-ink: #7a4f00;
+
+  --mist: #a8060f;
+  --muted: #efe8de;
+  --muted-foreground: #6b6259;
+  /* Hairlines and card edges. */
+  --border: #ece2d3;
+  /* WCAG 1.4.11: a control's own outline needs 3:1 against what sits next to it. */
+  --border-strong: #948a7f;
+  --ring: #a8060f;
+
+  --success: #7a4f00;
+  --warning: #b4530a;
+  --danger: #b42318;
+
+  /* The desktop backdrop the phone stands on: flat Moroccan red, cream type on it. */
+  --stage: #a8060f;
+  --stage-ink: #fff4e6;
+  --washed-filter: saturate(0.95) contrast(1.02);
+
+  color-scheme: light;
+}
+
+:root {
+
+  /* Organic's ramp structure, regenerated on Khotwa's hues. */
+  --neutral-100: #efeff1;
+  --neutral-200: #d9d9dd;
+  --neutral-300: #b9b9c0;
+  --neutral-400: #93939f;
+  --neutral-500: #747481;
+  --neutral-600: #5c5c66;
+  --neutral-700: #46464e;
+  --neutral-800: #303036;
+  --neutral-900: #1d1d20;
+
+  --accent-100: #fbe9eb;
+  --accent-200: #f4c7cd;
+  --accent-300: #ea9aa4;
+  --accent-400: #e35d6a;
+  --accent-500: #c23a4b;
+  --accent-600: #a32637;
+  --accent-700: #a8060f;
+  --accent-800: #651521;
+  --accent-900: #3f0d15;
+
+  --radius: 0.75rem;
+
+  /* One source of truth for the app viewport, so overlays that must escape the scroll
+     container (bottom sheets, the native <dialog>, vaul) can be pinned to the exact box
+     the app lives in. Mobile: the app IS the viewport. */
+  --app-w: 100%;
+  --app-h: 100dvh;
+  --app-radius: 0px;
+  /* Distance from the viewport edge to the app's own edge. Zero on mobile. */
+  --app-inset-block: 0px;
+
+  /* Gopher is the brand face and leads both stacks. It is licensed, so the files are
+     NOT in the repo — drop them into public/fonts/ (see the @font-face block below).
+     Until they exist the browser silently falls through to Instrument Sans, so a missing
+     licence never breaks a build or a demo.
+
+     Instrument Sans carries both roles behind it (see layout.tsx). Neither has Arabic, so the
+     Arabic fallbacks stay in the stack — the RTL screen renders in Geeza Pro / Noto
+     Sans Arabic, never in a Latin face substituting glyph by glyph. */
+  /* Belqees Pro (GHEEN Studio) is the Arabic face. It leads both stacks but its
+     @font-face is scoped to the Arabic unicode-range, so Latin text never touches it and
+     Arabic text never falls into a Latin face. Licensed: files live in public/fonts/. */
+  --font-display-family:
+    "Belqees Pro", "Gopher", var(--font-readex), ui-sans-serif, system-ui,
+    sans-serif;
+  --font-ui-family:
+    "Belqees Pro", "Gopher", var(--font-readex), ui-sans-serif, system-ui,
+    "Geeza Pro", "Noto Sans Arabic", sans-serif;
+}
+
+/* Dark: the same roles on a green-black ground. Deep green is lifted to read as a fill
+   and as type; red and yellow keep their jobs. */
+[data-theme="dark"] {
+  --background: #130e0d;
+  --foreground: #fff4e6;
+  --surface: #1c1514;
+  --surface-muted: #241b19;
+  --cream: #261c1a;
+
+  --primary: #b3101b;
+  --primary-hover: #c8202b;
+  --primary-foreground: #fff4e6;
+  --primary-soft: #2a1518;
+  --primary-ink: #ff8a95;
+
+  --mark-stride: #e35d6a;
+  --mark-base: #ff8a95;
+
+  --deep-green: #a8060f;
+  --deep-green-foreground: #fff4e6;
+  --accent-red: #ff8a95;
+  --accent-red-soft: #2a1518;
+
+  --saffron: #f4b942;
+  --saffron-soft: #2b2210;
+  --saffron-ink: #f4b942;
+
+  --mist: #ff8a95;
+  --muted: #241b19;
+  --muted-foreground: #b3a59f;
+  --border: #3a2c29;
+  --border-strong: #7a6863;
+  --ring: #ff8a95;
+
+  --success: #f4b942;
+  --warning: #f08a3c;
+  --danger: #ff6b5a;
+
+  --stage: #a8060f;
+  --stage-ink: #fff4e6;
+  --washed-filter: saturate(0.85) contrast(1.04) brightness(0.9);
+
+  color-scheme: dark;
+}
+
+/* A subtree can pin a theme (photo overlays carry data-theme="dark" so white type and
+   the scrim stay dark on a light page). Re-resolve inherited text against its tokens. */
+[data-theme] {
+  color: var(--foreground);
+}
+
+/* Drop BelqeesPro-Regular/Medium/Bold.woff2 (or .otf/.ttf — change the format) into
+   public/fonts/. Arabic range only (Arabic + presentation forms + Arabic-Indic digits). */
+@font-face {
+  font-family: "Belqees Pro";
+  src: url("/fonts/BelqeesPro-Regular.woff2") format("woff2");
+  font-weight: 300 400;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+0600-06FF, U+0750-077F, U+08A0-08FF, U+FB50-FDFF, U+FE70-FEFF;
+}
+
+@font-face {
+  font-family: "Belqees Pro";
+  src: url("/fonts/BelqeesPro-Medium.woff2") format("woff2");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+0600-06FF, U+0750-077F, U+08A0-08FF, U+FB50-FDFF, U+FE70-FEFF;
+}
+
+@font-face {
+  font-family: "Belqees Pro";
+  src: url("/fonts/BelqeesPro-Bold.woff2") format("woff2");
+  font-weight: 600 700;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+0600-06FF, U+0750-077F, U+08A0-08FF, U+FB50-FDFF, U+FE70-FEFF;
+}
+
+/* Drop Gopher-Regular/Medium/Bold.woff2 into public/fonts/ and these bind themselves.
+   No import, no build step — the filenames ARE the contract. */
+@font-face {
+  font-family: "Gopher";
+  src: url("/fonts/Gopher-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Gopher";
+  src: url("/fonts/Gopher-Medium.woff2") format("woff2");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Gopher";
+  src: url("/fonts/Gopher-Bold.woff2") format("woff2");
+  font-weight: 600 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+/**
+ * The tablet band. Between a phone and a laptop the app used to run edge to edge, so a
+ * 768px iPad showed a 768px-wide "phone": every row twice as wide as it was designed
+ * for, the bottom nav's four icons marooned at the far corners, and hero text stretched
+ * across a line length nobody laid out.
+ *
+ * The column caps at 430px — the widest phone the product targets — and centres on the
+ * same backdrop the desktop shell already paints. Full height and square corners,
+ * because at this size it is still a browser window, not a device on a stage.
+ */
+@media (min-width: 600px) and (max-width: 1023.98px) {
+  :root {
+    --app-w: min(100%, 26.875rem);
+  }
+}
+
+@media (min-width: 1024px) {
+  :root {
+    /* Checkmate's frame is 380×780. Capped to the viewport (minus the stage's 2rem
+       padding and the 12px bezel ring) so a 14" laptop shows the whole device without
+       scrolling; width follows height to keep the proportions. */
+    --app-h: min(844px, 100dvh - 88px);
+    --app-w: calc(var(--app-h) * 390 / 844);
+    /* Checkmate's INNER screen radius. Its 3rem is the outer shell — this plus the
+       12px bezel ring. */
+    --app-radius: 2.4rem;
+    --app-inset-block: calc((100dvh - var(--app-h)) / 2);
+  }
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-surface: var(--surface);
+  --color-surface-muted: var(--surface-muted);
+
+  --color-primary: var(--primary);
+  --color-primary-hover: var(--primary-hover);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary-soft: var(--primary-soft);
+  --color-primary-ink: var(--primary-ink);
+  --color-cream: var(--cream);
+  --color-accent-red: var(--accent-red);
+  --color-accent-red-soft: var(--accent-red-soft);
+  --color-brand-red: var(--brand-red);
+  --color-saffron-ink: var(--saffron-ink);
+
+  --color-deep-green: var(--deep-green);
+  --color-deep-green-foreground: var(--deep-green-foreground);
+  --color-mist: var(--mist);
+  --color-saffron: var(--saffron);
+  --color-saffron-soft: var(--saffron-soft);
+
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-border: var(--border);
+  --color-border-strong: var(--border-strong);
+  --color-ring: var(--ring);
+
+  --color-neutral-100: var(--neutral-100);
+  --color-neutral-200: var(--neutral-200);
+  --color-neutral-300: var(--neutral-300);
+  --color-neutral-400: var(--neutral-400);
+  --color-neutral-500: var(--neutral-500);
+  --color-neutral-600: var(--neutral-600);
+  --color-neutral-700: var(--neutral-700);
+  --color-neutral-800: var(--neutral-800);
+  --color-neutral-900: var(--neutral-900);
+
+  --color-accent-100: var(--accent-100);
+  --color-accent-200: var(--accent-200);
+  --color-accent-300: var(--accent-300);
+  --color-accent-400: var(--accent-400);
+  --color-accent-500: var(--accent-500);
+  --color-accent-600: var(--accent-600);
+  --color-accent-700: var(--accent-700);
+  --color-accent-800: var(--accent-800);
+  --color-accent-900: var(--accent-900);
+
+  --color-success: var(--success);
+  --color-warning: var(--warning);
+  --color-danger: var(--danger);
+
+  --font-display: var(--font-display-family);
+  --font-sans: var(--font-ui-family);
+  --font-mono: var(--font-ui-family);
+
+  /**
+   * Motion tokens.
+   *
+   * Four durations named after the job, not the number, matching `components/motion.ts`
+   * so CSS and Motion speak one language:
+   *
+   *   fast 120ms        a control acknowledging a tap
+   *   ui 200ms          a component changing state in place
+   *   navigation 340ms  content arriving from somewhere
+   *   emphasis 500ms    the few moments meant to be noticed
+   *
+   * The two `--default-*` names are Tailwind's own: setting them here re-points every bare
+   * `transition` in the app — about forty of them — from Tailwind's 150ms ease-in-out onto
+   * the product's curve. An ease-in-out on a tap response reads as hesitation; the app was
+   * using it everywhere by default, having chosen it nowhere.
+   */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-standard: cubic-bezier(0.4, 0, 0.2, 1);
+  --duration-fast: 120ms;
+  --duration-ui: 200ms;
+  --duration-navigation: 340ms;
+  --duration-emphasis: 500ms;
+  --default-transition-duration: 160ms;
+  --default-transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+
+  /* FROZEN (hackathon UI sync): chips 10 / controls 12 / surfaces 16 / media 20 / sheet 24. */
+  --radius-sm: 0.625rem;
+  --radius-md: 0.75rem;
+  --radius-lg: 1rem;
+  --radius-xl: 1.25rem;
+  --radius-2xl: 1.5rem;
+  --radius-3xl: 1.75rem;
+
+  /* Organic's elevation — soft ink-tinted shadows derived from the ground itself,
+     replacing the Atlantic-cast set. Tailwind's neutral black is never used. */
+  --shadow-sm: 0 1px 2px color-mix(in srgb, #2e2b25 14%, transparent);
+  --shadow-md: 0 3px 10px color-mix(in srgb, #2e2b25 16%, transparent);
+  --shadow-lg: 0 12px 32px color-mix(in srgb, #2e2b25 22%, transparent);
+  --shadow-xl: 0 20px 48px color-mix(in srgb, #2e2b25 26%, transparent);
+}
+
+/* shadcn/ui aliases — keeps `shadcn add <component>` working without re-theming. */
+@theme inline {
+  --color-card: var(--surface);
+  --color-card-foreground: var(--foreground);
+  --color-popover: var(--surface);
+  --color-popover-foreground: var(--foreground);
+  --color-secondary: var(--surface-muted);
+  --color-secondary-foreground: var(--foreground);
+  --color-accent: var(--primary-soft);
+  --color-accent-foreground: var(--primary-ink);
+  --color-destructive: var(--danger);
+  --color-destructive-foreground: var(--primary-foreground);
+  --color-input: var(--border);
+}
+
+@layer base {
+  * {
+    border-color: var(--border);
+  }
+
+  html {
+    -webkit-text-size-adjust: 100%;
+    /* Desktop: the root rem follows the device height (16px at the full 780px frame),
+       so every rem-sized thing inside the phone shrinks with it — a smaller phone, not
+       a phone with oversized text. Mobile keeps the browser default. */
+    @media (min-width: 1024px) {
+      font-size: min(16px, calc((100dvh - 88px) * 16 / 780));
+    }
+    /* Phones: one step denser than the browser default, so type, padding and controls sit
+       at real-app sizes. Inputs stay at 16px (pointer: coarse rule below) so iOS never
+       zooms on focus. */
+    @media (max-width: 1023px) {
+      font-size: 15px;
+    }
+  }
+
+  body {
+    background: var(--background);
+    /* The desktop backdrop the phone column stands on. */
+    @media (min-width: 700px) {
+      background: var(--stage);
+    }
+    color: var(--foreground);
+    font-family: var(--font-ui-family);
+    /* Organic's body rhythm: 15px on 1.55 — in rem so it follows the root scale. */
+    font-size: 0.9375rem;
+    line-height: 1.55;
+    /* Mobile-first: the app is a 390–430px column that centres on a laptop. */
+    overscroll-behavior-y: none;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-display-family);
+    /* Organic: heading tracking -0.015em on a 1.12 leading. Caprasimo is a heavy
+       display face — it needs the tighter line, not the tighter letter. */
+    line-height: 1.12;
+    letter-spacing: -0.015em;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--ring);
+    outline-offset: 2px;
+  }
+
+  /* Motion is a garnish, never a requirement. */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+/**
+ * The stage the device stands on. Mobile: the app is the viewport, edge to edge, no
+ * frame. Desktop: the same mobile UI, centred in a restrained device shell.
+ */
+@utility app-stage {
+  position: relative;
+  /*
+   * Flex, not grid: an auto grid track sizes to its item's MAX-CONTENT, so a wide child
+   * (the Explore filter row) stretches the track and `width: 100%` on the phone then
+   * resolves against that. A non-growing flex item with an explicit width cannot.
+   */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100dvh;
+  width: 100%;
+  /* x stays hidden — see the flex note. y scrolls so a short window shows the whole
+     device rather than a cropped bezel. */
+  overflow-x: hidden;
+  overflow-y: auto;
+  background: var(--background);
+
+  @media (min-width: 1024px) {
+    padding-block: 2rem;
+    background: var(--stage);
+  }
+}
+
+@utility app-phone {
+  position: relative;
+  flex: none;
+  min-width: 0;
+  width: var(--app-w);
+  max-width: 100%;
+  height: var(--app-h);
+  border-radius: var(--app-radius);
+  background: var(--background);
+  /* No transform/filter here: nested position:fixed overlays must stay
+     viewport-relative so `.app-anchored` can pin them to the phone. */
+
+  @media (min-width: 1024px) {
+    border: 1px solid color-mix(in oklab, var(--foreground) 14%, transparent);
+    box-shadow:
+      0 0 0 12px #000000,
+      0 0 0 12.5px color-mix(in oklab, var(--foreground) 12%, transparent),
+      0 18px 44px -18px rgb(0 0 0 / 0.55),
+      0 40px 90px -30px rgb(0 0 0 / 0.45);
+  }
+}
+
+/** The scroll container. Everything sticky inside a screen sticks to this. */
+@utility app-viewport {
+  position: relative;
+  height: 100%;
+  width: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+  overscroll-behavior: contain;
+  border-radius: inherit;
+  /* A native scrollbar running down the inside of a phone breaks the illusion. */
+  scrollbar-width: none;
+  /* A stable painting context for the rounded clip. */
+  isolation: isolate;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+/* The one kicker grammar: 11px, tracked, uppercase. Colour comes from the call site
+   (green = place and context, muted = a field label). */
+@utility eyebrow {
+  font-size: 0.6875rem;
+  line-height: 1rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+/* The reveal: map pins land one after another (delay set per pin in map-canvas). */
+@utility animate-pin-in {
+  animation: pin-in 420ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes pin-in {
+  from {
+    transform: scale(0.3);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/**
+ * Pins a viewport-fixed overlay (a bottom sheet, a scrim, vaul's drawer) to the phone's
+ * own box. Native <dialog> and vaul both render in the top layer / at <body>, which
+ * would otherwise cover the desktop stage instead of the app.
+ */
+@utility app-anchored {
+  position: fixed;
+  inset-inline: 0;
+  margin-inline: auto;
+  width: var(--app-w);
+  max-width: 100%;
+  top: var(--app-inset-block);
+  height: var(--app-h);
+  border-radius: var(--app-radius);
+  overflow: hidden;
+}
+
+/* The mark steps in, one shape at a time. The Khotwa logo is filled shapes, not a
+   stroked line, so there is no dash offset to animate — the stride lands, then the
+   arm, then the dome. */
+@keyframes khotwa-step {
+  from {
+    opacity: 0;
+    transform: translateY(8%) scale(0.94);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@utility step-in {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: khotwa-step 460ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* Generation loader: the mark breathes once stepped in, the wordmark's letters glow in
+   sequence. Both loop until the trip is ready. */
+@keyframes khotwa-breathe {
+  0%, 100% { transform: scale(1); filter: drop-shadow(0 0 0 transparent); }
+  50% { transform: scale(1.05); filter: drop-shadow(0 0 14px color-mix(in srgb, var(--primary) 55%, transparent)); }
+}
+@utility brand-breathe {
+  animation: khotwa-breathe 2.2s ease-in-out 700ms infinite;
+}
+@keyframes khotwa-letter {
+  0%, 60%, 100% { opacity: 0.35; }
+  30% { opacity: 1; color: var(--primary); }
+}
+@utility brand-letter {
+  display: inline-block;
+  animation: khotwa-letter 1.6s ease-in-out infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .brand-breathe, .brand-letter { animation: none; opacity: 1; }
+}
+
+/* Organic's image treatment, inverted for a black ground. Its brightness(1.1) was
+   lifting photography off a sand page; on black the same move blows images out and
+   flattens them against the type, so the treatment settles them down instead. */
+@utility washed {
+  filter: var(--washed-filter);
+}
+
+/* MapLibre attribution: legally visible, visually last. The default is a white 24px bar
+   that sat over the mini card's Navigate button. Kept at the map's bottom-right, where
+   the callout leaves a clear strip, as one tiny translucent line on the dark tiles. */
+.maplibregl-ctrl-bottom-right .maplibregl-ctrl.maplibregl-ctrl-attrib {
+  margin: 0 4px 4px 0;
+  padding: 1px 6px;
+  border-radius: 6px;
+  background: color-mix(in srgb, var(--background) 72%, transparent);
+  color: var(--muted-foreground);
+  font-size: 8.5px;
+  line-height: 14px;
+  white-space: nowrap;
+  max-width: calc(100% - 8px);
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+/* Specificity over maplibre-gl.css, which loads after this file with the GL chunk. */
+.maplibregl-ctrl-bottom-right .maplibregl-ctrl-attrib a,
+.maplibregl-ctrl-bottom-right .maplibregl-ctrl-attrib a:hover {
+  color: inherit;
+  text-decoration: none;
+}
+.maplibregl-ctrl-attrib-button {
+  display: none;
+}
+
+/**
+ * Indeterminate progress. Used wherever the app is waiting on something whose duration it
+ * genuinely does not know — understanding a sentence, reading a link, recognising a photo.
+ *
+ * A transform sweep, never a width tween: `width` is layout work on every frame, and a
+ * percentage the app cannot measure is a lie told to the user's face. Under reduced motion
+ * the track simply fills, so the state still reads without anything moving.
+ */
+@keyframes analysing-sweep {
+  from {
+    transform: translateX(-110%);
+  }
+  to {
+    transform: translateX(320%);
+  }
+}
+
+@utility analysing-track {
+  position: relative;
+  overflow: hidden;
+  height: 2px;
+  border-radius: 999px;
+  background: color-mix(in oklab, var(--primary) 20%, transparent);
+}
+
+@utility analysing-bar {
+  position: absolute;
+  inset-block: 0;
+  inline-size: 32%;
+  border-radius: 999px;
+  background: var(--primary);
+  animation: analysing-sweep 1150ms cubic-bezier(0.65, 0, 0.35, 1) infinite;
+
+  @media (prefers-reduced-motion: reduce) {
+    animation-name: none;
+    inline-size: 100%;
+    opacity: 0.55;
+  }
+}
+
+/**
+ * The microphone is listening.
+ *
+ * A ring breathing out from behind the button — the one continuous animation in the app,
+ * and it exists because "am I being heard" is a question the interface has to answer while
+ * the answer is still true. It stops the instant recording does. Reduced motion holds a
+ * steady halo instead: the state still reads, nothing moves.
+ */
+@keyframes voice-listening {
+  from {
+    transform: scale(1);
+    opacity: 0.55;
+  }
+  to {
+    transform: scale(1.85);
+    opacity: 0;
+  }
+}
+
+@utility voice-listening {
+  animation: voice-listening 1800ms cubic-bezier(0.4, 0, 0.2, 1) infinite;
+
+  @media (prefers-reduced-motion: reduce) {
+    animation-name: none;
+    transform: scale(1.3);
+    opacity: 0.3;
+  }
+}
+
+/* Mobile pressed feedback: immediate, subtle, no bounce. Reduced motion keeps the tint
+   and drops the scale. */
+@utility pressable {
+  transition:
+    transform var(--duration-fast) var(--ease-out),
+    opacity var(--duration-fast) var(--ease-out),
+    background-color var(--duration-fast) var(--ease-out),
+    border-color var(--duration-fast) var(--ease-out),
+    color var(--duration-fast) var(--ease-out);
+  &:active {
+    opacity: 0.85;
+    @media (prefers-reduced-motion: no-preference) {
+      transform: scale(0.97);
+    }
+  }
+}
+
+/*
+ * iOS Safari zooms the whole page in when you focus a field whose text is smaller than
+ * 16px — and it does not zoom back out when you leave it. You are then stuck at 130%,
+ * pinching to get the layout back, which on a phone-shaped app is the difference between
+ * "typed a sentence" and "lost the screen".
+ *
+ * Every field here was 14–15px, chosen for the density of the design. So the fix raises
+ * them to the threshold, and only where the problem exists: `pointer: coarse` is the touch
+ * devices that do this, and the desktop stage keeps the typography it was drawn with.
+ * `max()` rather than a flat 16px so a field that is deliberately larger stays larger.
+ *
+ * What this deliberately does NOT do is add `maximum-scale=1` to the viewport. That also
+ * stops the zoom, by taking pinch-zoom away from everybody — a WCAG 1.4.4 failure, and a
+ * cruel one in an app whose whole content is places a person is trying to read about.
+ */
+@media (pointer: coarse) {
+  input,
+  textarea,
+  select {
+    font-size: max(16px, 1em);
+  }
+}
+
+/* ---------- Screen-to-screen: React <ViewTransition> (see PageShell) ---------- */
+::view-transition {
+  pointer-events: none;
+}
+::view-transition-group(*) {
+  animation-duration: 340ms;
+  animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+}
+/* Same level (tabs) or unknown: a quick crossfade with a small rise. */
+::view-transition-old(.page) {
+  animation: 140ms ease-in both vt-fade reverse;
+}
+::view-transition-new(.page) {
+  animation:
+    220ms ease-out 80ms both vt-fade,
+    340ms cubic-bezier(0.16, 1, 0.3, 1) both vt-rise;
+}
+/* Deeper: old page drifts back, new one slides in from the end. Shallower: mirrored. */
+html[data-nav="forward"]::view-transition-old(.page),
+html[data-nav="back"]::view-transition-old(.page) {
+  animation:
+    160ms ease-in both vt-fade reverse,
+    340ms cubic-bezier(0.4, 0, 0.2, 1) both vt-slide reverse;
+}
+html[data-nav="forward"]::view-transition-new(.page),
+html[data-nav="back"]::view-transition-new(.page) {
+  animation:
+    220ms ease-out 100ms both vt-fade,
+    380ms cubic-bezier(0.16, 1, 0.3, 1) both vt-slide;
+}
+html[data-nav="forward"]::view-transition-old(.page) { --vt-x: -48px; }
+html[data-nav="forward"]::view-transition-new(.page) { --vt-x: 64px; }
+html[data-nav="back"]::view-transition-old(.page) { --vt-x: 64px; }
+html[data-nav="back"]::view-transition-new(.page) { --vt-x: -48px; }
+[dir="rtl"] { --vt-dir: -1; }
+@keyframes vt-fade { from { opacity: 0; } to { opacity: 1; } }
+@keyframes vt-rise { from { translate: 0 10px; } to { translate: 0 0; } }
+@keyframes vt-slide { from { translate: calc(var(--vt-x, 48px) * var(--vt-dir, 1)) 0; } to { translate: 0 0; } }
+
+/* The tab bar is the anchor: it never moves, only its selection changes. */
+::view-transition-group(tab-bar) { animation: none; z-index: 100; }
+::view-transition-old(tab-bar) { display: none; }
+::view-transition-new(tab-bar) { animation: none; }
+/* The action pill morphs from one screen's action to the next. */
+::view-transition-group(page-footer) { z-index: 90; }
+
+/* A dish photo grows from its menu row into the meal hero, and back. */
+::view-transition-group(.dish) {
+  animation-duration: 420ms;
+  z-index: 80;
+}
+::view-transition-image-pair(.dish) {
+  animation-name: vt-soft;
+}
+@keyframes vt-soft { 35% { filter: blur(2px); } }
+
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-old(*),
+  ::view-transition-new(*),
+  ::view-transition-group(*),
+  ::view-transition-image-pair(*) {
+    animation-duration: 0s !important;
+    animation-delay: 0s !important;
+  }
+}
+
+/* ---------- In-screen feedback ---------- */
+/* A count that just changed: keyed remount replays it. */
+.pop {
+  animation: pop 320ms cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+@keyframes pop {
+  0% { scale: 0.6; }
+  60% { scale: 1.18; }
+  100% { scale: 1; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .pop { animation: none; }
+}
+
+/* Times, prices and codes stay in Readex: only the figures go tabular so a ticking
+   countdown never jitters. */
+.font-mono {
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---------- Splash ---------- */
+.splash-stage {
+  /* Brand red with a little depth: lighter behind the emblem, deeper at the edges. */
+  background:
+    radial-gradient(120% 65% at 50% 34%, #bd0d18 0%, #a8060f 48%, #8c040c 100%);
+  color: #fff4e6;
+}
+.splash-in {
+  animation: splash-in 600ms cubic-bezier(0.16, 1, 0.3, 1) 80ms both;
+}
+/* The lockup reveal: the emblem pops, then the word opens out from behind it. */
+.splash-logo {
+  animation: splash-pop 700ms cubic-bezier(0.2, 0.8, 0.2, 1) 200ms both;
+}
+.splash-word-inner {
+  animation: splash-slide 1s cubic-bezier(0.65, 0, 0.25, 1) 1.1s both;
+}
+.splash-after {
+  animation: splash-in 600ms cubic-bezier(0.16, 1, 0.3, 1) 2s both;
+}
+@keyframes splash-pop {
+  from { opacity: 0; scale: 0.7; }
+  to { opacity: 1; scale: 1; }
+}
+@keyframes splash-slide {
+  from { translate: 0 -115%; opacity: 0; }
+  to { translate: 0 0; opacity: 1; }
+}
+.splash-rise {
+  animation: splash-rise 700ms cubic-bezier(0.16, 1, 0.3, 1) 160ms both;
+}
+@keyframes splash-in {
+  from { opacity: 0; translate: 0 10px; }
+  to { opacity: 1; translate: 0 0; }
+}
+@keyframes splash-rise {
+  from { opacity: 0; translate: 0 18px; }
+  to { opacity: 1; translate: 0 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .splash-in, .splash-rise, .splash-logo, .splash-word-inner, .splash-after { animation: none; }
+}
+.splash-twinkle {
+  opacity: 0.35;
+  animation: splash-twinkle 2.8s ease-in-out infinite both;
+}
+@keyframes splash-twinkle {
+  0%, 100% { opacity: 0.3; scale: 0.85; }
+  50% { opacity: 0.85; scale: 1; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .splash-twinkle { animation: none; opacity: 0.6; }
+}
+
+/* A white card on the cream page: soft edge, soft lift. */
+@utility card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 1rem;
+  box-shadow: 0 1px 2px rgb(60 40 20 / 0.04), 0 8px 20px -14px rgb(60 40 20 / 0.18);
+}
+
+/* ---------- Transitions stay inside the phone ----------
+   View-transition snapshots paint in a layer above the page, so on desktop a sliding page
+   showed square corners and could stick out of the device frame. The screen is its own
+   group, everything named inside it nests under it, and its children are clipped to the
+   screen's rounded box. Browsers without nested groups ignore this and behave as before. */
+.app-viewport {
+  view-transition-name: app-screen;
+}
+.app-viewport * {
+  view-transition-group: nearest;
+}
+::view-transition-group(app-screen) {
+  animation: none;
+}
+::view-transition-old(app-screen) {
+  display: none;
+}
+::view-transition-new(app-screen) {
+  animation: none;
+}
+/* The clip itself (::view-transition-group-children) lives in layout.tsx: the CSS
+   toolchain here does not parse that pseudo-element yet, and a parse failure stops styles
+   from hot-reloading on other devices. */

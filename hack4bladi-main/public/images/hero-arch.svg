@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 1000" role="img" aria-label="Arches opening onto the Atlantic">
+  <!-- Original Siyaha artwork. Palette matches the design tokens in src/app/globals.css.
+       Ships as a local asset so Home renders with every network dead. -->
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#17506e"/>
+      <stop offset="0.45" stop-color="#dce8f0"/>
+      <stop offset="0.78" stop-color="#f5e0d7"/>
+      <stop offset="1" stop-color="#f5e0d7"/>
+    </linearGradient>
+    <clipPath id="archClip"><path d="M100 880 L100 430 C100 240 190 140 400 120 C610 140 700 240 700 430 L700 880 Z"/></clipPath>
+    <pattern id="band" width="80" height="80" patternUnits="userSpaceOnUse">
+      <path d="M40 6 74 40 40 74 6 40Z" fill="none" stroke="#17506e" stroke-opacity="0.22" stroke-width="2"/>
+      <path d="M40 22 58 40 40 58 22 40Z" fill="none" stroke="#bf5b3e" stroke-opacity="0.3" stroke-width="2"/>
+    </pattern>
+  </defs>
+
+  <rect width="800" height="1000" fill="#f2ebdf"/>
+
+  <g clip-path="url(#archClip)">
+    <rect x="100" y="100" width="600" height="800" fill="url(#sky)"/>
+    <circle cx="545" cy="410" r="92" fill="#bf5b3e"/>
+    <rect x="100" y="640" width="600" height="260" fill="#17506e"/>
+    <g stroke="#dce8f0" stroke-opacity="0.28" stroke-width="3" stroke-linecap="round">
+      <path d="M140 700 H320"/>
+      <path d="M380 700 H520"/>
+      <path d="M180 752 H420"/>
+      <path d="M470 752 H660"/>
+      <path d="M130 806 H300"/>
+      <path d="M360 806 H600"/>
+    </g>
+    <g fill="#221f1b">
+      <rect x="160" y="560" width="300" height="80"/>
+      <path d="M250 640 V300 C250 268 268 252 292 246 C316 252 334 268 334 300 V640 Z"/>
+      <rect x="240" y="244" width="104" height="20" rx="6"/>
+      <path d="M292 214 C302 226 308 234 308 242 H276 C276 234 282 226 292 214Z"/>
+      <circle cx="292" cy="206" r="9"/>
+    </g>
+    <path d="M160 560 H460" stroke="#bf5b3e" stroke-width="6"/>
+  </g>
+
+  <path d="M100 880 L100 430 C100 240 190 140 400 120 C610 140 700 240 700 430 L700 880 Z" fill="none" stroke="#bf5b3e" stroke-width="5"/>
+  <rect x="0" y="900" width="800" height="80" fill="url(#band)"/>
+  <path d="M0 896 H800" stroke="#e4dacb" stroke-width="4"/>
+</svg>

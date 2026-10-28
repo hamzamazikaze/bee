@@ -1,0 +1,16 @@
+# The build runs `pnpm install` itself; a host node_modules would be the wrong platform.
+node_modules
+.next
+.git
+.claude
+.env*
+!.env.example
+
+# Nothing the server needs, and all of it slows the build context down.
+docs
+references
+public/videos
+*.md
+!README.md
+coverage
+*.tsbuildinfo

@@ -1,0 +1,591 @@
+openapi: 3.1.0
+info:
+  title: Siyaha internal API
+  version: "1.0.0"
+  description: |
+    The five route handlers under `src/app/api/`. This spec documents the API **as
+    implemented**, not as idealised — where a handler's behaviour is surprising, the
+    surprise is written down rather than smoothed over.
+
+    Two conventions run through this API and are worth stating once:
+
+    1. **Degradation is not an error.** Four of the five endpoints answer `200` even when
+       the upstream provider is missing, slow or broken, and signal it with
+       `degraded: true` plus an empty-but-valid payload (docs/FALLBACKS.md). Clients must
+       branch on the body, not on the status code.
+    2. **Weather is the exception** and uses `204 No Content` for the same situation,
+       because its consumer is a single optional chip.
+
+    Unlisted methods on any path return `405` from the Next.js router (no handler is
+    exported for them).
+servers:
+  - url: http://localhost:3000
+    description: Local development
+  - url: "{origin}"
+    description: Any deployment; the app calls these paths relative to its own origin
+    variables:
+      origin:
+        default: http://localhost:3000
+
+tags:
+  - name: understanding
+    description: Turns raw traveller input (photo, voice, link, text) into structure.
+  - name: trip
+    description: Supports a trip that has already been built locally.
+
+paths:
+  /api/analyze:
+    post:
+      tags: [understanding]
+      operationId: analyzeImage
+      summary: Identify the place shown in a photo or screenshot
+      description: |
+        Accepts an image two ways because two callers need two shapes: the composer holds
+        a `File`, the processing screen may already hold base64 in the store.
+
+        **External dependency:** Google Gemini (`serverEnv.gemini.apiKey`), bounded by
+        `TIMEOUTS.imageAnalysisMs` (8 s). With no key configured, on timeout, or on
+        unparseable model output the response is still `200` with `EMPTY_ANALYSIS` and
+        `degraded: true`.
+
+        Upload rejections (wrong MIME, over 8 MB, unreadable body) are also `200`, with
+        `ok: false` — see finding H2 in docs/API_REVIEW.md.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                image:
+                  $ref: '#/components/schemas/InlineImage'
+              required: [image]
+          multipart/form-data:
+            schema:
+              type: object
+              description: |
+                The part may be named `file` or `image`; `file` is tried first.
+              properties:
+                file:
+                  type: string
+                  format: binary
+                image:
+                  type: string
+                  format: binary
+      responses:
+        '200':
+          description: |
+            Always. Inspect `ok` and `degraded` — never the status code alone.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AnalyzeResponse'
+              examples:
+                recognised:
+                  summary: Model answered
+                  value:
+                    ok: true
+                    degraded: false
+                    result:
+                      destination: Casablanca
+                      detectedPlace: Hassan II Mosque
+                      detectedPoiId: hassan-ii-mosque
+                      labels: [mosque, minaret, ocean, architecture]
+                      ocrText: null
+                      confidence: { destination: 0.94, detectedPlace: 0.91 }
+                noKey:
+                  summary: No GEMINI_API_KEY configured
+                  value:
+                    ok: true
+                    degraded: true
+                    reason: unavailable
+                    result: { destination: null, detectedPlace: null, detectedPoiId: null, labels: [], ocrText: null, confidence: {} }
+                rejectedUpload:
+                  summary: File too large — note this is still HTTP 200
+                  value:
+                    ok: false
+                    degraded: true
+                    reason: too_large
+                    result: { destination: null, detectedPlace: null, detectedPoiId: null, labels: [], ocrText: null, confidence: {} }
+
+  /api/extract:
+    post:
+      tags: [understanding]
+      operationId: extractTripProfile
+      summary: Fold every signal the traveller gave into one TripProfile
+      description: |
+        The hand-off point between "AI understands" and "the local engine decides". Every
+        field of the request is optional; a body of `{}` is valid and yields an empty
+        profile the engine can still build a day from.
+
+        **External dependencies:** Gemini for extraction (`TIMEOUTS.profileExtractionMs`,
+        8 s) and an oEmbed-style fetch for social metadata
+        (`TIMEOUTS.socialContextMs`, 3 s). They run concurrently. Social enrichment can
+        only ever add — its failure is silent and never affects `degraded`.
+
+        A malformed JSON body is not rejected: it is treated as `{}`
+        (`src/app/api/extract/route.ts:65`).
+
+        **This endpoint currently has no caller in the app** — see finding H3.
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ExtractRequest'
+      responses:
+        '200':
+          description: "Always. `degraded: true` means the profile came from the user's own choices rather than the model."
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ok:
+                    type: boolean
+                    const: true
+                  degraded:
+                    type: boolean
+                    description: true when the model produced nothing usable.
+                  profile:
+                    $ref: '#/components/schemas/TripProfile'
+                required: [ok, degraded, profile]
+
+  /api/transcribe:
+    post:
+      tags: [understanding]
+      operationId: transcribeAudio
+      summary: Voice note to text
+      description: |
+        **External dependency:** Groq Whisper (`serverEnv.groq.apiKey`), bounded by
+        `TIMEOUTS.transcriptionMs` (8 s). No key, timeout or provider error all answer
+        `200` with `text: ""` and `degraded: true`; the voice button shows a short message
+        and every manual preference still works.
+
+        Unlike `/api/analyze`, this endpoint accepts **only** `multipart/form-data` — a
+        JSON body fails `request.formData()` and returns `reason: "unreadable_body"`.
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              description: |
+                The part may be named `file` or `audio`; `file` is tried first. The app's
+                own client sends `audio` (`src/features/home/analyze.ts:104`), so the
+                handler's docstring naming only `file` is out of date.
+              properties:
+                file:
+                  type: string
+                  format: binary
+                audio:
+                  type: string
+                  format: binary
+      responses:
+        '200':
+          description: Always.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TranscribeResponse'
+              examples:
+                transcribed:
+                  value: { ok: true, degraded: false, text: "I want to see the old medina and eat somewhere local", detectedLocale: en }
+                noKey:
+                  value: { ok: true, degraded: true, reason: unavailable, text: "" }
+
+  /api/route:
+    post:
+      tags: [trip]
+      operationId: calculateRoute
+      summary: Road geometry for a batch of trip segments
+      description: |
+        Returns exactly one result per requested segment, in the order requested.
+
+        **External dependency:** the public OSRM demo server
+        (`serverEnv.routing.baseUrl`), one call per segment, each bounded by
+        `TIMEOUTS.routingSegmentMs` (4 s). A dead provider is not an error state: the
+        result is a straight-line estimate with `geometry: null` and
+        `source: "fallback"`, and the map draws straight lines.
+
+        **Only `geometry` is consumed by the app.** Per docs/FALLBACKS.md the provider's
+        `distanceMeters` and `durationMinutes` are deliberately discarded — the public
+        OSRM server answers with driving data for every profile, so its durations would
+        put a five-minute label on a half-hour walk. All numbers the UI shows come from
+        `calculateMetrics()` over locally estimated legs.
+
+        This is the only endpoint of the five that validates its input (zod) and the only
+        one that returns a 4xx.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RouteRequest'
+      responses:
+        '200':
+          description: One result per requested segment, in order.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  segments:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/SegmentResult'
+                required: [segments]
+        '400':
+          description: |
+            Unparseable JSON (`error: "invalid_json"`) or a body that fails the schema
+            (`error: "invalid_request"`). No detail is returned about which field failed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RouteError'
+
+  /api/weather:
+    get:
+      tags: [trip]
+      operationId: getWeather
+      summary: Current conditions for the trip header chip
+      description: |
+        **External dependency:** Open-Meteo (`serverEnv.weather.baseUrl`), bounded by
+        `TIMEOUTS.weatherMs` (2.5 s).
+
+        Optional by design: on any failure — non-2xx upstream, timeout, missing or
+        non-numeric fields in the payload — this answers `204` and the chip is simply
+        omitted. No placeholder, no error message.
+
+        Non-numeric `lat`/`lng` are not rejected; they silently fall back to
+        `MAP.defaultCenter` (Casablanca). Out-of-range values are passed straight through
+        to Open-Meteo — see finding M5.
+      parameters:
+        - name: lat
+          in: query
+          required: false
+          description: Defaults to `MAP.defaultCenter.lat` (33.5899) when absent or non-numeric.
+          schema:
+            type: number
+        - name: lng
+          in: query
+          required: false
+          description: Defaults to `MAP.defaultCenter.lng` (-7.6039) when absent or non-numeric.
+          schema:
+            type: number
+        - name: city
+          in: query
+          required: false
+          description: |
+            Echoed back verbatim in the response `city` field; it is not used in the
+            upstream request. Defaults to `APP.defaultDestination` ("Casablanca").
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Conditions available.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WeatherSummary'
+              example:
+                city: Casablanca
+                temperatureC: 24
+                condition: sunny
+                label: { en: Sunny, fr: Ensoleillé, ar: مشمس }
+        '204':
+          description: |
+            Unavailable, for any reason. The only failure signal this endpoint has — the
+            client omits the chip.
+
+components:
+  schemas:
+    Locale:
+      type: string
+      enum: [en, fr, ar]
+
+    LocalizedText:
+      type: object
+      description: Content translation. Product UI strings live in `src/lib/i18n`, not here.
+      properties:
+        en: { type: string }
+        fr: { type: string }
+        ar: { type: string }
+      required: [en, fr, ar]
+
+    Coordinates:
+      type: object
+      properties:
+        lat: { type: number, minimum: -90, maximum: 90 }
+        lng: { type: number, minimum: -180, maximum: 180 }
+      required: [lat, lng]
+
+    ConfidenceMap:
+      type: object
+      description: 0..1 per key. Sparse — a missing key means "not inferred".
+      additionalProperties:
+        type: number
+        minimum: 0
+        maximum: 1
+
+    UploadFailure:
+      type: string
+      description: Why an upload was refused at the trust boundary (`src/lib/ai/upload.ts`).
+      enum: [missing_file, unsupported_type, too_large, unreadable_body]
+
+    DegradeReason:
+      description: |
+        `unavailable` means no provider key was configured. The other values come from
+        `UploadFailure`. Note that a *provider* failure (timeout, bad output) sets
+        `degraded: true` with **no** `reason` at all.
+      oneOf:
+        - $ref: '#/components/schemas/UploadFailure'
+        - type: string
+          enum: [unavailable]
+
+    InlineImage:
+      type: object
+      description: |
+        A `data:` URL prefix on `base64` is tolerated and stripped. Accepted MIME types are
+        `UPLOAD.acceptedMimeTypes`; the decoded size must be under `UPLOAD.maxBytes` (8 MB).
+      properties:
+        base64:
+          type: string
+        mimeType:
+          type: string
+          enum: [image/jpeg, image/png, image/webp, image/heic]
+      required: [base64, mimeType]
+
+    ImageAnalysisResult:
+      type: object
+      description: |
+        The model identifies; it never invents coordinates. `detectedPoiId` is set only
+        when the detected place resolves against the curated dataset.
+      properties:
+        destination:
+          type: [string, "null"]
+          description: A town in Casablanca-Settat, or null if unsure.
+        detectedPlace:
+          type: [string, "null"]
+        detectedPoiId:
+          type: [string, "null"]
+        labels:
+          type: array
+          items: { type: string }
+        ocrText:
+          type: [string, "null"]
+        confidence:
+          $ref: '#/components/schemas/ConfidenceMap'
+      required: [destination, detectedPlace, detectedPoiId, labels, confidence]
+
+    AnalyzeResponse:
+      type: object
+      properties:
+        ok:
+          type: boolean
+          description: |
+            `false` only when the upload itself was refused. A dead or missing model
+            still reports `ok: true`.
+        degraded:
+          type: boolean
+        reason:
+          $ref: '#/components/schemas/DegradeReason'
+        result:
+          $ref: '#/components/schemas/ImageAnalysisResult'
+      required: [ok, degraded, result]
+
+    InputSource:
+      type: string
+      enum: [image, social_url, voice, text, manual, preset]
+
+    Interest:
+      type: string
+      description: Identical to `POICategory` by design — matching an interest to a category is `===`.
+      enum: [culture, food, coast_nature, hidden_gems, art_creative, activities]
+
+    SocialContext:
+      type: object
+      description: Optional enrichment from a pasted link. Never a hard dependency.
+      properties:
+        platform:
+          type: string
+          enum: [tiktok, instagram, facebook, youtube, other]
+        url: { type: string }
+        author: { type: [string, "null"] }
+        title: { type: [string, "null"] }
+        caption: { type: [string, "null"] }
+        hashtags:
+          type: array
+          items: { type: string }
+        thumbnailUrl: { type: [string, "null"] }
+      required: [platform, url]
+
+    TripProfile:
+      type: object
+      description: |
+        The single structured hand-off from the AI layer to the local trip engine. Every
+        field is nullable: the app must work with whatever the traveller gave it. A profile
+        carrying only `interests` is valid and must still produce a trip.
+      properties:
+        destination: { type: [string, "null"] }
+        detectedPlace: { type: [string, "null"] }
+        detectedPoiId: { type: [string, "null"] }
+        interests:
+          type: array
+          maxItems: 3
+          items:
+            $ref: '#/components/schemas/Interest'
+        timeAvailable:
+          type: [string, "null"]
+          enum: [few_hours, half_day, full_day, null]
+        budgetLevel:
+          type: [string, "null"]
+          enum: [low, medium, premium, null]
+        pace:
+          type: [string, "null"]
+          enum: [relaxed, balanced, explorer, null]
+        walkingPreference:
+          type: [string, "null"]
+          enum: [minimal, normal, plenty, null]
+        locale:
+          $ref: '#/components/schemas/Locale'
+        confidence:
+          $ref: '#/components/schemas/ConfidenceMap'
+        sources:
+          type: array
+          items:
+            $ref: '#/components/schemas/InputSource'
+        social:
+          oneOf:
+            - $ref: '#/components/schemas/SocialContext'
+            - type: "null"
+        transcript: { type: [string, "null"] }
+        createdAt:
+          type: string
+          format: date-time
+      required: [destination, detectedPlace, detectedPoiId, interests, timeAvailable, budgetLevel, pace, walkingPreference, locale, confidence, sources, createdAt]
+
+    ExtractRequest:
+      type: object
+      description: |
+        Every field is optional and every field is coerced rather than rejected: a
+        non-`Locale` `locale` becomes `"en"`, unknown entries in `sources` are dropped,
+        blank strings become absent. An entirely unparseable body is treated as `{}`.
+      properties:
+        image:
+          $ref: '#/components/schemas/InlineImage'
+        socialUrl:
+          type: string
+          description: Trimmed. Fetched for metadata only; failure is silent.
+        transcript: { type: string }
+        text: { type: string }
+        known:
+          $ref: '#/components/schemas/TripProfile'
+        locale:
+          $ref: '#/components/schemas/Locale'
+        sources:
+          type: array
+          items:
+            $ref: '#/components/schemas/InputSource'
+
+    TranscribeResponse:
+      type: object
+      properties:
+        ok:
+          type: boolean
+          description: '`false` only when the upload itself was refused.'
+        degraded: { type: boolean }
+        reason:
+          $ref: '#/components/schemas/DegradeReason'
+        text:
+          type: string
+          description: Empty string whenever `degraded` is true.
+        detectedLocale:
+          description: |
+            Present (possibly `null`) on the provider path; absent entirely on the
+            no-key and rejected-upload paths.
+          oneOf:
+            - $ref: '#/components/schemas/Locale'
+            - type: "null"
+      required: [ok, degraded, text]
+
+    TravelMode:
+      type: string
+      enum: [walking, car]
+
+    SegmentRequest:
+      type: object
+      properties:
+        from:
+          $ref: '#/components/schemas/Coordinates'
+        to:
+          $ref: '#/components/schemas/Coordinates'
+        mode:
+          $ref: '#/components/schemas/TravelMode'
+      required: [from, to, mode]
+
+    RouteRequest:
+      type: object
+      description: |
+        A trip is `TRIP_SEGMENT_COUNT` (3) segments; the ceiling of 9 is slack, not an
+        invitation.
+      properties:
+        segments:
+          type: array
+          minItems: 1
+          maxItems: 9
+          items:
+            $ref: '#/components/schemas/SegmentRequest'
+      required: [segments]
+
+    SegmentResult:
+      type: object
+      description: |
+        Note this is **not** `RouteSegment` from `src/types/trip.ts` — it carries no `id`,
+        `fromStopId` or `toStopId`. Results are matched to segments by array position.
+      properties:
+        mode:
+          $ref: '#/components/schemas/TravelMode'
+        distanceMeters:
+          type: number
+          description: Discarded by the app. See the endpoint description.
+        durationMinutes:
+          type: number
+          description: Discarded by the app. See the endpoint description.
+        geometry:
+          description: 'Decoded path, or `null` → the renderer draws a straight line. This is the only field the app consumes.'
+          oneOf:
+            - type: array
+              items:
+                $ref: '#/components/schemas/Coordinates'
+            - type: "null"
+        source:
+          type: string
+          enum: [provider, fallback]
+      required: [mode, distanceMeters, durationMinutes, geometry, source]
+
+    RouteError:
+      type: object
+      properties:
+        error:
+          type: string
+          enum: [invalid_json, invalid_request]
+      required: [error]
+
+    WeatherSummary:
+      type: object
+      properties:
+        city:
+          type: string
+          description: Echo of the `city` query parameter.
+        temperatureC:
+          type: integer
+        condition:
+          type: string
+          enum: [sunny, cloudy, rain, wind, unknown]
+          description: |
+            Mapped from WMO codes. `wind` is defined in the domain type and has a label,
+            but `toCondition()` can never produce it.
+        label:
+          $ref: '#/components/schemas/LocalizedText'
+      required: [city, temperatureC, condition, label]
